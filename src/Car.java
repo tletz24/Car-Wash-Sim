@@ -7,6 +7,7 @@ public class Car {
     public Car(int aTime, int sTime) {
         this.aTime = aTime;
         this.sTime = sTime;
+        this.wTime = 0;                 //Set the time of wait to 0 initially.
     }
 
     public int getaTime() {

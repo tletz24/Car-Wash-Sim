@@ -1,5 +1,7 @@
 import java.util.LinkedList;
 
+//TODO make it so that when the queue is constructed there can only be 8 (or 7) slots.
+
 class WaitQueue<E> {
 
     private LinkedList<E> list = new LinkedList<E>();
@@ -26,5 +28,11 @@ class WaitQueue<E> {
 
     public E top() {
         return list.peek();
+    }
+
+    public void updateWaitTimes() {
+        if(hasItems()) {
+            //TODO make the queue iterable so we can go through and increment the wait times by one
+        }
     }
 }

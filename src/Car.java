@@ -14,24 +14,12 @@ public class Car {
         return aTime;
     }
 
-    public void setaTime(int aTime) {
-        this.aTime = aTime;
-    }
-
     public int getsTime() {
         return sTime;
     }
 
-    public void setsTime(int sTime) {
-        this.sTime = sTime;
-    }
-
     public int getwTime() {
         return wTime;
-    }
-
-    public void setwTime(int wTime) {
-        this.wTime = wTime;
     }
 
     public void incrementWait() {

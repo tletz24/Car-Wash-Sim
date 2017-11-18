@@ -4,11 +4,11 @@ public class Main {
 
     //Here we declare all of the statistics that we wil be working with
     public static double totalCustomersServed = 0;
-    public static int totalCustomersPassed    = 0;
-    public static double totalWaitTime        = 50;
-    public static int idleMinutes             = 0;
-    public static int longestWaitTime         = 0;
-    public static int washer                  = 0;
+    public static int totalCustomersPassed = 0;
+    public static double totalWaitTime = 50;
+    public static int idleMinutes = 0;
+    public static int longestWaitTime = 0;
+    public static int washer = 0;
 
     public static double aveWaitTime = 0.0;
 
@@ -17,8 +17,8 @@ public class Main {
     public static void main(String[] args) {
 
         int openingCustomers = rnd.nextInt(8);
-        int lengthShift      = 20;
-        int sizeOfLine       = 8;
+        int lengthShift = 20;
+        int sizeOfLine = 8;
 
         simulation(openingCustomers, lengthShift, sizeOfLine);
 

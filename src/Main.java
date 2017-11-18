@@ -1,38 +1,45 @@
+import java.util.Random;
+
 public class Main {
 
-    public static int totalCustomersServed = 0;
+    //Here we declare all of the statistics that we wil be working with
+    public static double totalCustomersServed = 0;
     public static int totalCustomersPassed = 0;
-    public static int totalWaitTime = 0;
-
-    public static double idleMinuites = 0;
-    public static double aveWaitTime = 0;
-
+    public static double totalWaitTime = 50;
+    public static int idleMinutes = 0;
     public static int longestWaitTime = 0;
-
     public static int washer = 0;
+
+    public static double aveWaitTime = 0.0;
+
+    public static Random rnd = new Random();
 
     public static void main(String[] args) {
 
-        int numCustomers = 4;
+        int openingCustomers = rnd.nextInt(8);
         int lengthShift = 20;
         int sizeOfLine = 8;
 
-        simulation(numCustomers, lengthShift);
-        System.out.println(totalCustomersServed);
+        simulation(openingCustomers, lengthShift, sizeOfLine);
+
 
     }
 
-    public static void simulation(int numCustomers, int lengthShift) {
+    public static void simulation(int numCustomers, int lengthShift, int sizeOfQueue) {
 
         WaitQueue<Car> WashLine = new WaitQueue<>();
 
         populateWithFirstArrivals(WashLine, numCustomers);
 
+        System.out.println("");
+
         for (int time = 0; time < lengthShift; time++) {
 
             updateWasher();
 
-            //PART 1: Check if another car has arrive.
+            if(rnd.nextInt(4) == 0) {
+                addNewCustomer(time, WashLine);
+            }
 
             if (true) {
                 if (true) {
@@ -51,18 +58,18 @@ public class Main {
                     washer = WashLine.top().getsTime();
                     getStats(WashLine.top());
                     WashLine.dequeue();
-                    totalCustomersServed += 1;
+                    totalCustomersServed += 1.0;
                 }
-
             }
-
         }
+
+        printStats();
 
     }
 
     public static void populateWithFirstArrivals(WaitQueue<Car> inputQueue, int numCustomers) {
-        for (int i = 0; i < numCustomers; i++) {
-            Car tempCar = new Car(0, 2); //TODO add randomness of wait time
+        for (int i = 0; i <= numCustomers; i++) {
+            Car tempCar = new Car(0, (rnd.nextInt(3) + 2));
             inputQueue.enqueue(tempCar);
         }
     }
@@ -71,7 +78,7 @@ public class Main {
         if (washer > 0) {
             washer--;
         } else {
-            idleMinuites++;
+            idleMinutes++;
         }
     }
 
@@ -82,6 +89,9 @@ public class Main {
 
     public static void getStats(Car customer) {
         totalWaitTime += customer.getwTime();
+        if (customer.getwTime() > longestWaitTime) {
+            longestWaitTime = customer.getwTime();
+        }
     }
 
     public static void tester() {
@@ -100,7 +110,27 @@ public class Main {
         tempList.top().getwTime();
     }
 
-    public static void calcStats() {
-        //TODO Calculate statistics
+    public static void printStats() {
+
+        //TODO format the wait time to be with 2 decimal places.
+        if(totalCustomersServed > 0.0) {
+            aveWaitTime = (totalWaitTime / totalCustomersServed);
+        }
+
+        System.out.println("");
+        System.out.println("This Shifts Statistics:");
+        System.out.println("--------------------------------------");
+        System.out.println("The total customers served: "         + totalCustomersServed);
+        System.out.println("The total customers passed: "         + totalCustomersPassed);
+        System.out.println("The longest wait time: "              + longestWaitTime);
+        System.out.println("The average wait time: "              + aveWaitTime);
+        System.out.println("The total time the washer was idle: " + idleMinutes);
+        System.out.println("--------------------------------------");
+
+    }
+
+    public static void addNewCustomer(int time, WaitQueue inputQueue) {
+        Car tempCar = new Car(time, rnd.nextInt(5));
+        inputQueue.enqueue(tempCar);
     }
 }

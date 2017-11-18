@@ -1,16 +1,14 @@
 import java.util.LinkedList;
 
-//TODO make it so that when the queue is constructed there can only be 8 (or 7) slots.
+public class WaitQueue<Car> extends LinkedList<Car> {
 
-class WaitQueue<E> {
+    private LinkedList<Car> list = new LinkedList<Car>();
 
-    private LinkedList<E> list = new LinkedList<E>();
-
-    public void enqueue(E item) {
+    public void enqueue(Car item) {
         list.addLast(item);
     }
 
-    public E dequeue() {
+    public Car dequeue() {
         return list.poll();
     }
 
@@ -22,17 +20,12 @@ class WaitQueue<E> {
         return list.size();
     }
 
-    public void addItems(WaitQueue<? extends E> q) {
+    public void addItems(WaitQueue<? extends Car> q) {
         while (q.hasItems()) list.addLast(q.dequeue());
     }
 
-    public E top() {
+    public Car top() {
         return list.peek();
     }
 
-    public void updateWaitTimes() {
-        if(hasItems()) {
-            //TODO make the queue iterable so we can go through and increment the wait times by one
-        }
-    }
 }
